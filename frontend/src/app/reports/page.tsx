@@ -1,11 +1,17 @@
-import { PlaceholderPage } from "@/components/placeholder-page";
+import { ReportsView } from "@/components/reports-view";
+import { getReportOverview } from "@/lib/api";
 
-export default function ReportsPage() {
-  return (
-    <PlaceholderPage
-      title="Laporan"
-      description="Ringkasan mingguan dan bulanan akan disiapkan setelah data transaksi tersimpan di database."
-      nextItems={["Laporan penjualan", "Ringkasan keuntungan", "Export PDF/Excel"]}
-    />
-  );
+const allowedPeriods = new Set([7, 30, 90]);
+
+export default async function ReportsPage({
+  searchParams
+}: {
+  searchParams: Promise<{ days?: string }>;
+}) {
+  const { days: daysParameter } = await searchParams;
+  const parsedDays = Number(daysParameter);
+  const days = allowedPeriods.has(parsedDays) ? parsedDays : 30;
+  const report = await getReportOverview(days);
+
+  return <ReportsView report={report.data} dataSource={report.source} days={days} />;
 }

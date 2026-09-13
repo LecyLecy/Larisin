@@ -1,11 +1,7 @@
-import { PlaceholderPage } from "@/components/placeholder-page";
+import { SettingsView } from "@/components/settings-view";
+import { getBusinessProfile } from "@/lib/api";
 
-export default function SettingsPage() {
-  return (
-    <PlaceholderPage
-      title="Pengaturan"
-      description="Tempat mengelola profil toko, kategori usaha, preferensi stok minimum, dan akses pengguna."
-      nextItems={["Nama toko", "Kategori usaha", "Hak akses Owner dan Staff"]}
-    />
-  );
+export default async function SettingsPage() {
+  const business = await getBusinessProfile();
+  return <SettingsView initialProfile={business.data} dataSource={business.source} />;
 }

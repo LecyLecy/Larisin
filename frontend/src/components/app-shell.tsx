@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 const navItems = [
@@ -13,7 +14,13 @@ const navItems = [
   { href: "/settings", label: "Pengaturan", icon: "G" }
 ];
 
-export function AppShell({ children }: { children: React.ReactNode }) {
+export function AppShell({
+  children,
+  businessName
+}: {
+  children: React.ReactNode;
+  businessName: string;
+}) {
   const pathname = usePathname();
 
   return (
@@ -49,10 +56,17 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             </div>
             <div className="hidden lg:block">
               <p className="text-sm text-slate-500">Halo, Bu Rina</p>
-              <p className="font-semibold text-slate-900">Toko Rina Jaya</p>
+              <p className="font-semibold text-slate-900">{businessName}</p>
             </div>
-            <div className="rounded-full border border-brand-100 bg-brand-50 px-3 py-1 text-sm font-medium text-brand-700">
-              Mode contoh
+            <div className="flex items-center gap-3">
+              <Image
+                src="/brand/larisin-icon.png"
+                alt="Logo Larisin"
+                width={36}
+                height={36}
+                className="h-9 w-9 object-contain"
+                priority
+              />
             </div>
           </div>
         </header>
@@ -71,7 +85,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                 active ? "bg-brand-50 text-brand-700" : "text-slate-600"
               }`}
             >
-              {item.label}
+              <span className="mx-auto mb-1 grid h-6 w-6 place-items-center rounded-md bg-slate-100 text-[10px] font-bold">
+                {item.icon}
+              </span>
+              <span>{item.label}</span>
             </Link>
           );
         })}
@@ -81,10 +98,23 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 }
 
 function Brand({ compact = false }: { compact?: boolean }) {
+  const logoSize = compact ? 44 : 52;
+
   return (
     <div className="flex items-center gap-3">
-      <div className="grid h-10 w-10 place-items-center rounded-full border-2 border-brand-600 bg-brand-50 text-lg font-black text-brand-700">
-        L
+      <div
+        className={`grid shrink-0 place-items-center overflow-hidden rounded-full bg-white ${
+          compact ? "h-11 w-11" : "h-[52px] w-[52px]"
+        }`}
+      >
+        <Image
+          src="/brand/larisin-icon.png"
+          alt="Logo Larisin"
+          width={logoSize}
+          height={logoSize}
+          className={compact ? "h-11 w-11 object-contain" : "h-[52px] w-[52px] object-contain"}
+          priority
+        />
       </div>
       {!compact ? (
         <div>

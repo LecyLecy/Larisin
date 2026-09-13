@@ -39,23 +39,49 @@ export const fallbackProducts: Product[] = [
 export const fallbackTransactions: Transaction[] = [
   {
     id: "trx-001",
-    date: "2026-06-16",
-    product_name: "Beras Ramos 5kg",
-    quantity: 2,
-    selling_price: 68000,
-    discount: 0,
+    date: "2026-06-16T09:15:00Z",
     payment_method: "Tunai",
-    notes: "Sample data"
+    subtotal: 136000,
+    total_discount: 0,
+    total_amount: 136000,
+    gross_profit: 20000,
+    total_quantity: 2,
+    notes: "Sample data",
+    items: [
+      {
+        id: "trx-item-001",
+        product_id: "prd-beras-5kg",
+        product_name: "Beras Ramos 5kg",
+        quantity: 2,
+        selling_price: 68000,
+        purchase_price: 58000,
+        discount: 0,
+        line_total: 136000
+      }
+    ]
   },
   {
     id: "trx-002",
-    date: "2026-06-16",
-    product_name: "Minuman Sachet",
-    quantity: 5,
-    selling_price: 10000,
-    discount: 0,
+    date: "2026-06-16T10:30:00Z",
     payment_method: "QRIS",
-    notes: "Sample data"
+    subtotal: 50000,
+    total_discount: 0,
+    total_amount: 50000,
+    gross_profit: 4000,
+    total_quantity: 5,
+    notes: "Sample data",
+    items: [
+      {
+        id: "trx-item-002",
+        product_id: "prd-minuman-sachet",
+        product_name: "Minuman Sachet",
+        quantity: 5,
+        selling_price: 10000,
+        purchase_price: 9200,
+        discount: 0,
+        line_total: 50000
+      }
+    ]
   }
 ];
 

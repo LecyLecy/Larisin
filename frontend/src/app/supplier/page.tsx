@@ -1,11 +1,7 @@
-import { PlaceholderPage } from "@/components/placeholder-page";
+import { SupplierView } from "@/components/supplier-view";
+import { getSuppliers } from "@/lib/api";
 
-export default function SupplierPage() {
-  return (
-    <PlaceholderPage
-      title="Supplier"
-      description="Nantinya halaman ini membantu membandingkan pemasok berdasarkan harga, kategori, dan ketepatan pengiriman."
-      nextItems={["Daftar supplier", "Riwayat pembelian", "Perbandingan harga per kategori"]}
-    />
-  );
+export default async function SupplierPage() {
+  const suppliers = await getSuppliers();
+  return <SupplierView initialSuppliers={suppliers.data} dataSource={suppliers.source} />;
 }

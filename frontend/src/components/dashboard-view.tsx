@@ -16,12 +16,12 @@ export function DashboardView({
     {
       label: "Total Penjualan Hari Ini",
       value: formatRupiah(summary.total_sales_today),
-      helper: "+12% dari kemarin"
+      helper: "Dari transaksi hari ini"
     },
     {
       label: "Keuntungan Kotor",
       value: formatRupiah(summary.gross_profit_today),
-      helper: "Margin sehat untuk sembako"
+      helper: "Setelah diskon transaksi"
     },
     {
       label: "Jumlah Transaksi",
@@ -72,7 +72,7 @@ export function DashboardView({
               <p className="text-sm text-slate-500">7 hari terakhir</p>
             </div>
             <span className="rounded-full bg-brand-50 px-3 py-1 text-xs font-semibold text-brand-700">
-              Contoh
+              {dataSource === "api" ? "Data aktual" : "Contoh"}
             </span>
           </div>
           <div className="mt-6 flex h-48 items-end gap-3">
@@ -99,7 +99,13 @@ export function DashboardView({
       </section>
 
       <section className="grid gap-4 xl:grid-cols-2">
-        <ProductTable products={summary.low_stock_products} compact title="Stok Perlu Dicek" />
+        <ProductTable
+          products={summary.low_stock_products}
+          compact
+          title="Stok Perlu Dicek"
+          emptyTitle="Semua stok aman"
+          emptyDescription="Belum ada produk yang mencapai batas stok minimum."
+        />
         <TransactionList transactions={summary.recent_transactions} compact title="Transaksi Terbaru" />
       </section>
     </main>
