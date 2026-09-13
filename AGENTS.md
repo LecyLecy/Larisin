@@ -17,6 +17,16 @@ This file is the operating guide for AI coding agents working on Larisin.
 - Do not add complex auth, ML, ETL, payment, or export systems until requested.
 - Preserve Indonesian UI labels unless a file is clearly internal/technical.
 
+## Learning Workflow
+
+- The owner is building Larisin to learn data engineering, data science, and ML.
+- Automate unrelated boilerplate, UI polish, deployment plumbing, and repetitive setup.
+- For data work, explain the ideal approach, exact implementation steps, and reasoning in-context.
+- Do not require the owner to start from a blank page when a worked example is more effective.
+- Use the real project as the lesson: implement together, then identify the data concepts demonstrated.
+- Prefer progressive help: explanation, example, guided task, review, then full solution when requested.
+- Never force ML into the product; compare against a simple baseline and use it only when justified.
+
 ## Branch Policy
 
 - `main` is deploy-ready only.

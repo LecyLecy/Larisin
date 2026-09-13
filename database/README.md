@@ -2,7 +2,10 @@
 
 This folder documents the planned PostgreSQL schema for Larisin.
 
-The starter app does not require a database connection yet. `initial_schema.sql` is a safe planning/first-migration direction for Railway PostgreSQL when persistence begins.
+Product, sales, inventory, supplier, and analytics-view persistence is implemented through Alembic migrations in `backend/alembic/`.
+`initial_schema.sql` remains the broader planning direction; Alembic is the executable source of truth for tables already implemented.
+
+Local PostgreSQL runs through `compose.yaml` on port `5433` to avoid conflicting with a default local PostgreSQL installation.
 
 ## Operational Tables
 
@@ -14,17 +17,25 @@ The starter app does not require a database connection yet. `initial_schema.sql`
 - `sales_transaction_items`
 - `inventory_movements`
 
+Supplier is linked optionally to products and inventory movements. For the MVP, the UI assigns a
+supplier during stock-in; purchase orders and supplier-price history are deferred.
+
 ## Future Analytics Direction
 
-After the operational tables stabilize, add SQL views or marts for:
+The first analytics views are implemented by Alembic migration `0003` and mirrored in
+`analytics_views.sql` for review. They are ordinary PostgreSQL views, so reports see each
+committed transaction without a scheduled refresh:
+
+- `mart_daily_sales_summary`
+- `mart_product_daily_performance`
+
+Future views or marts:
 
 - `dim_product`
 - `dim_supplier`
 - `dim_date`
 - `fact_sales`
 - `fact_inventory`
-- `mart_daily_sales_summary`
-- `mart_product_performance`
 - `mart_low_stock_alerts`
 - `mart_restock_recommendations`
 

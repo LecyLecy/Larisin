@@ -1,0 +1,20 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: larisin-postgres
+    environment:
+      POSTGRES_DB: larisin
+      POSTGRES_USER: larisin
+      POSTGRES_PASSWORD: larisin_local
+    ports:
+      - "5433:5432"
+    volumes:
+      - larisin_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U larisin -d larisin"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  larisin_postgres_data:

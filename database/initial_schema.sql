@@ -58,8 +58,10 @@ CREATE TABLE IF NOT EXISTS sales_transactions (
     business_id uuid NOT NULL REFERENCES businesses(id),
     transaction_date timestamptz NOT NULL DEFAULT now(),
     payment_method text NOT NULL,
+    subtotal integer NOT NULL CHECK (subtotal >= 0),
     total_amount integer NOT NULL CHECK (total_amount >= 0),
     total_discount integer NOT NULL DEFAULT 0 CHECK (total_discount >= 0),
+    gross_profit integer NOT NULL,
     notes text,
     created_by uuid REFERENCES users(id),
     created_at timestamptz NOT NULL DEFAULT now(),
@@ -76,7 +78,7 @@ CREATE TABLE IF NOT EXISTS sales_transaction_items (
     product_name_snapshot text NOT NULL,
     quantity integer NOT NULL CHECK (quantity > 0),
     selling_price integer NOT NULL CHECK (selling_price >= 0),
-    purchase_price_snapshot integer CHECK (purchase_price_snapshot IS NULL OR purchase_price_snapshot >= 0),
+    purchase_price integer NOT NULL CHECK (purchase_price >= 0),
     discount integer NOT NULL DEFAULT 0 CHECK (discount >= 0),
     line_total integer NOT NULL CHECK (line_total >= 0)
 );
