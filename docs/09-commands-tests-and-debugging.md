@@ -14,12 +14,22 @@ npm run dev
 Backend:
 
 ```bash
+copy backend\.env.example backend\.env
+docker compose up -d postgres
 cd backend
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
-copy .env.example .env
+python -m alembic upgrade head
 uvicorn app.main:app --reload
+```
+
+Database lifecycle from the repository root:
+
+```bash
+docker compose up -d postgres
+docker compose ps
+docker compose stop postgres
 ```
 
 On this machine, use Python 3.11 through the launcher if default `python` points to 3.8:
@@ -46,17 +56,28 @@ uvicorn app.main:app --reload
 python -m pytest
 ```
 
+## Populate Local Demo Data
+
+Use this only with a fresh empty development database. The script checks for existing products first and exits without altering data when it finds any.
+
+```powershell
+$env:DATABASE_URL = "sqlite+pysqlite:///C:/Users/$env:USERNAME/AppData/Local/Larisin/larisin-local.db"
+.\backend\.venv\Scripts\python.exe .\scripts\seed_demo_data.py
+```
+
+For PostgreSQL, set `DATABASE_URL` to the local Compose connection before running the same command. Do not run the seed script against a real business database.
+
 Current verified results:
 
 - `npm run lint`: passed.
 - `npm run build`: passed.
-- `npm audit --audit-level=moderate`: passed.
-- `.\.venv\Scripts\python.exe -m pytest`: passed, 3 tests.
+- `npm audit --audit-level=moderate`: passed with 0 vulnerabilities.
+ - `.\.venv\Scripts\python.exe -m pytest`: passed, 18 tests.
 
 ## Common Debugging Steps
 
 - Check `NEXT_PUBLIC_API_BASE_URL` in frontend env.
-- Check `CORS_ORIGINS` in backend env.
+- Check `CORS_ORIGINS` in backend env. Local development also accepts any `localhost` or `127.0.0.1` port so Next.js can use its available port.
 - Visit `/health` before debugging frontend API calls.
 - Read browser console and Next.js terminal logs.
 - Read FastAPI terminal logs for request errors.

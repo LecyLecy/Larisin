@@ -62,5 +62,5 @@ Catat transaksi dan stok dengan mudah, lalu Larisin bantu tunjukkan produk terla
 
 - **Assumption:** Railway PostgreSQL will be used for production database.
 - **Assumption:** Auth will be backend-managed JWT/session auth later.
-- **Assumption:** The user will provide the logo file later at `frontend/public/brand/larisin-icon.png`.
+- The provided Larisin logo is stored at `frontend/public/brand/larisin-icon.png`.
 - **Assumption:** Initial implementation uses sample data only.
