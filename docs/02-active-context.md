@@ -6,7 +6,7 @@ Initial repository setup is completed on `dev`. The project started nearly empty
 
 ## Current Branch
 
-`codex/larisin-mvp`
+`main`
 
 ## Initialized
 

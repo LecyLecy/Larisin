@@ -2,7 +2,7 @@
 
 ## Concise Handoff
 
-Larisin is a new full-stack starter project for an Indonesian UMKM intelligence platform. Current work is on `codex/larisin-mvp`; do not merge or force anything without user approval.
+Larisin is a new full-stack starter project for an Indonesian UMKM intelligence platform. The MVP is now on `main`; do not force push or rewrite history without user approval.
 
 ## What Exists
 
