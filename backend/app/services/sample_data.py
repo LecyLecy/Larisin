@@ -1,8 +1,8 @@
-from datetime import date
+from datetime import datetime, timezone
 
 from app.schemas.analytics import AnalyticsSummary, Recommendation, SalesTrendPoint
 from app.schemas.product import Product, StockStatus
-from app.schemas.transaction import Transaction
+from app.schemas.transaction import Transaction, TransactionItem
 
 
 def get_products() -> list[Product]:
@@ -47,23 +47,49 @@ def get_transactions() -> list[Transaction]:
     return [
         Transaction(
             id="trx-001",
-            date=date(2026, 6, 16),
-            product_name="Beras Ramos 5kg",
-            quantity=2,
-            selling_price=68000,
-            discount=0,
+            date=datetime(2026, 6, 16, 9, 15, tzinfo=timezone.utc),
             payment_method="Tunai",
+            subtotal=136000,
+            total_discount=0,
+            total_amount=136000,
+            gross_profit=20000,
             notes="Sample data",
+            total_quantity=2,
+            items=[
+                TransactionItem(
+                    id="trx-item-001",
+                    product_id="prd-beras-5kg",
+                    product_name="Beras Ramos 5kg",
+                    quantity=2,
+                    selling_price=68000,
+                    purchase_price=58000,
+                    discount=0,
+                    line_total=136000,
+                )
+            ],
         ),
         Transaction(
             id="trx-002",
-            date=date(2026, 6, 16),
-            product_name="Minuman Sachet",
-            quantity=5,
-            selling_price=10000,
-            discount=0,
+            date=datetime(2026, 6, 16, 10, 30, tzinfo=timezone.utc),
             payment_method="QRIS",
+            subtotal=50000,
+            total_discount=0,
+            total_amount=50000,
+            gross_profit=4000,
             notes="Sample data",
+            total_quantity=5,
+            items=[
+                TransactionItem(
+                    id="trx-item-002",
+                    product_id="prd-minuman-sachet",
+                    product_name="Minuman Sachet",
+                    quantity=5,
+                    selling_price=10000,
+                    purchase_price=9200,
+                    discount=0,
+                    line_total=50000,
+                )
+            ],
         ),
     ]
 

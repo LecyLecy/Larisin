@@ -6,7 +6,7 @@ class Settings(BaseSettings):
     app_name: str = "Larisin API"
     environment: str = "local"
     cors_origins_raw: str = Field(default="http://localhost:3000", alias="CORS_ORIGINS")
-    database_url: str | None = None
+    database_url: str = Field(alias="DATABASE_URL")
 
     model_config = SettingsConfigDict(
         env_file=".env",
